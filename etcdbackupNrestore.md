@@ -15,8 +15,7 @@ On Kubernetes Master node , as "root" user , find the path of etcdctl:
 /var/lib/docker/overlay2/5089447ac1df5c81b1e856dbe311e1cdf2af4162546ce1bffd9a5bcb17f26a48/diff/usr/local/bin/etcdctl
 /var/lib/docker/overlay2/e32f05a91646893f86bfebc49bb904e5336484830f0cc20667786a5d3c9b3ead/merged/usr/local/bin/etcdctl
 ```
-
-Copy etcdctl under /usr/bin to make execute
+Copy etcdctl under /usr/bin (so we can avoid absolute path)
 
 ```sh
 [vagrant@kmaster ~]$ sudo cp /var/lib/docker/overlay2/5089447ac1df5c81b1e856dbe311e1cdf2af4162546ce1bffd9a5bcb17f26a48/diff/usr/local/bin/etcdctl /usr/bin/
