@@ -1,3 +1,5 @@
+# How to backup Live Deployments on K8s Cluster using ETCD & restore deployments during disaster event
+
 Scenario :
 
 For OS patch update , Sysadmin need to reboot K8s Master Server as scheduled activity & they anticipate low risk of any data loss.
@@ -5,8 +7,8 @@ Considering this activity , DevOPS team wants to take a “Backup of the running
 After the maintenance, the Cluster is UP but no “Deployments” are seen .
 
 
-Procedure to take backup of Live Deployments
-###############################
+#### Procedure to take backup of Live Deployments
+
 On Kubernetes Master node , as "root" user , find the path of etcdctl:
 
 ```sh
@@ -78,8 +80,8 @@ At this point the Sysadmin team completes their maintenance by rebooting Master 
 Now its DevOPS engineer who need to restore deployments from the backup .
 <<<<>>>> 
 
-Procedure to Restore Deployment from the backup
-###################################
+#### Procedure to Restore Deployment from the backup
+
 ```sh
 [vagrant@kmaster ~]$ sudo ETCDCTL_API=3 etcdctl snapshot restore --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379  --data-dir="/var/lib/etcd-from-backup" --initial-cluster="kmaster.mylab.com=https://127.0.0.1:2380" --name="kmaster.mylab.com" --initial-advertise-peer-urls="https://127.0.0.1:2380" --initial-cluster-token="etcd-cluster-1" /tmp/snapshot-pre-boot.db
 
