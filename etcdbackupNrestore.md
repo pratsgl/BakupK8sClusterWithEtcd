@@ -21,13 +21,13 @@ Copy etcdctl under /usr/bin (so we can avoid absolute path)
 [vagrant@kmaster ~]$ sudo cp /var/lib/docker/overlay2/5089447ac1df5c81b1e856dbe311e1cdf2af4162546ce1bffd9a5bcb17f26a48/diff/usr/local/bin/etcdctl /usr/bin/
 
  ```
-Check if etcdctl works
+Check if etcdctl command works
 ```sh
 [vagrant@kmaster ~]$ sudo ETCDCTL_API=3 etcdctl member list --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379
 cbe1b3a9f7c32775, started, kmaster.mylab.com, https://172.42.42.100:2380, https://172.42.42.100:2379, false
  
  ```
-Take a backup of etcd db using etcdctl command
+Now take a backup of etcd db using etcdctl command
 ```sh
 [vagrant@kmaster ~]$ sudo ETCDCTL_API=3 etcdctl snapshot save --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379 /tmp/snapshot-pre-boot.db
 
@@ -42,9 +42,10 @@ Snapshot saved under /tmp/snapshot-pre-boot.db
 
 [vagrant@kmaster ~]$ ls -ltr /tmp/snapshot-pre-boot.db
 -rw-------. 1 root root 4206624 Nov 17 07:03 /tmp/snapshot-pre-boot.db
-
 ```
- Take a screenshot of etcd process running on the Master Server , as we need few values in later usage
+The backup in now stored in a file /tmp/snapshot-pre-boot.db
+
+Take a screenshot of etcd process running on the Master Server , as we need few values for later usage (during recovery)
 ```sh
 [vagrant@kmaster ~]$ sudo ps -ef | grep etcd
 vagrant   3016  9678  0 07:08 pts/0    00:00:00 grep --color=auto etcd
@@ -53,7 +54,7 @@ root      4935  4857  2 03:53 ?        00:04:08 etcd --advertise-client-urls=htt
  
  ```
  
-Screen shot Of Live Pods,Replicasets,Deployments,SVC  before reboot
+Screen shot Of Live Pods,Replicasets,Deployments,SVC before reboot
  ```sh
 [vagrant@kmaster ~]$ kubectl get po,rs,deployments,svc
 NAME                       READY   STATUS    RESTARTS   AGE
@@ -74,8 +75,9 @@ NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3h19m
 ```
 <<<<>>>>> 
-At this point the Sysadmin team completes their maintenance by rebooting Master Server , the cluster is UP but no “Deployments” are seen.
-Now its DevOPS engineer who need to restore deployments from the backup .
+At this point the Sysadmin team completes their maintenance by rebooting Master Server,the cluster is UP but no “Deployments” are seen on K8s Cluster.
+Now DevOPS is Paged :) to take a look & restore back deployments from the backup .
+
 <<<<>>>> 
 
 ## Procedure to Restore Deployment from the backup
@@ -93,7 +95,7 @@ Now that we have the backup stored in a file "/tmp/snapshot-pre-boot.db" , we ca
 e92d66acd89ecf29, started, kmaster.mylab.com, https://127.0.0.1:2380, https://172.42.42.100:2379, false
 
 ```
-Now make changes in etcd.yaml , for Kubernetes to load new etcd config (changing default path to new path of restored folder)
+Now make changes in etcd.yaml (edit), for Kubernetes to load new etcd configs (changing default path to new path of restored folder)
 
 ```sh
 [root@kmaster member]# cd /etc/kubernetes/manifests/
