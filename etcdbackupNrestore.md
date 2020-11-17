@@ -133,13 +133,12 @@ Save file and check if new etcd docker running
 978c681c10c6        0369cf4303ff              "etcd --advertise-cl…"   19 seconds ago      Up 18 seconds                           k8s_etcd_etcd-kmaster.mylab.com_kube-system_5597f23dd355eae5b44179ea36ec0acb_0
 5e53c8bad1e9        k8s.gcr.io/pause:3.2      "/pause"                 19 seconds ago      Up 18 seconds                           k8s_POD_etcd-kmaster.mylab.com_kube-system_5597f23dd355eae5b44179ea36ec0acb_0
 ```
-Check member list
+Check member list 
 ```sh
 [vagrant@kmaster home]$ sudo ETCDCTL_API=3 etcdctl member list --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379
 e92d66acd89ecf29, started, kmaster.mylab.com, https://127.0.0.1:2380, https://172.42.42.100:2379, false
-
 ```
-Now check if Pods,Deployments,Replicaset is restored
+Now check if Pods,Deployments,Replicaset are restored (compare them with screen shot you took prior to reboot)
 
 ```sh
 [vagrant@kmaster home]$ kubectl get po,rs,deployments,svc
