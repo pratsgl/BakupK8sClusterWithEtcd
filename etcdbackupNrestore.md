@@ -79,7 +79,7 @@ Now its DevOPS engineer who need to restore deployments from the backup .
 <<<<>>>> 
 
 ## Procedure to Restore Deployment from the backup
-
+Now that we have the backup stored in a file "/tmp/snapshot-pre-boot.db" , we can restore deployments using "etcdctl snapshot restore" 
 ```sh
 [vagrant@kmaster ~]$ sudo ETCDCTL_API=3 etcdctl snapshot restore --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379  --data-dir="/var/lib/etcd-from-backup" --initial-cluster="kmaster.mylab.com=https://127.0.0.1:2380" --name="kmaster.mylab.com" --initial-advertise-peer-urls="https://127.0.0.1:2380" --initial-cluster-token="etcd-cluster-1" /tmp/snapshot-pre-boot.db
 
