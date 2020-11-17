@@ -1,4 +1,4 @@
-# How to backup Live Deployments on K8s Cluster using ETCD & restore deployments during Disaster event
+# How to backup Live Deployments on K8s Cluster using ETCD(ctl) & restore deployments during Disaster event
 
 Scenario :
 
