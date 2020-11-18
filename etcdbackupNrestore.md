@@ -138,7 +138,8 @@ Check member list
 [vagrant@kmaster home]$ sudo ETCDCTL_API=3 etcdctl member list --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --endpoints=127.0.0.1:2379
 e92d66acd89ecf29, started, kmaster.mylab.com, https://127.0.0.1:2380, https://172.42.42.100:2379, false
 ```
-Now check if Pods,Deployments,Replicaset are restored (compare them with screen shot you took prior to reboot)
+Now check if Pods,Deployments,Replicaset are restored .
+Compare them with screen shot you took prior to reboot , except "AGE" of Pod , everything should remain same.
 
 ```sh
 [vagrant@kmaster home]$ kubectl get po,rs,deployments,svc
