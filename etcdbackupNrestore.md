@@ -1,13 +1,13 @@
-#### etcdctl
-[etcdctl] is a command line client for etcd. It can be used in scripts or for administrators to explore an etcd cluster.
 
 # How to backup Live Deployments on K8s Cluster using ETCD(ctl) & restore deployments during Disaster event
 
-Scenario :
-
+### Scenario :
 For OS patch update , Sysadmin need to reboot K8s Master Server as scheduled activity & they anticipate low risk of any data loss.
 Considering this activity , DevOPS team wants to take a “Backup of the running Deployments on the K8s Cluster” – just to be on Safer side.
 After the maintenance, the Cluster is UP but no “Deployments” are seen . The following article show how to recover the deployments from backup.
+
+#### etcdctl
+[etcdctl] is a command line client for etcd. It can be used in scripts or for administrators to explore an etcd cluster.
 
 ## Procedure to take backup of Live Deployments
 
