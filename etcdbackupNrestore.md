@@ -1,3 +1,6 @@
+#### etcdctl
+[etcdctl] is a command line client for etcd. It can be used in scripts or for administrators to explore an etcd cluster.
+
 # How to backup Live Deployments on K8s Cluster using ETCD(ctl) & restore deployments during Disaster event
 
 Scenario :
@@ -160,3 +163,6 @@ deployment.apps/red    2/2     2            2           67m
 NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   3h55m
 ```
+
+[etcdctl]: https://chromium.googlesource.com/external/github.com/coreos/etcd/+/HEAD/etcdctl/READMEv2.md
+
